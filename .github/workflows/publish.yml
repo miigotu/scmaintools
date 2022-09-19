@@ -10,109 +10,109 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  Test:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        python-version: [3.7, 3.8, 3.9, "3.10"]
-        experimental: [false]
-        include:
-          - os: windows-latest
-            python-version: 3.9
-            experimental: true
-          - os: macos-latest
-            python-version: 3.9
-            experimental: true
-          - os: ubuntu-latest
-            python-version: "3.11-dev"
-            experimental: true
-          - os: ubuntu-latest
-            python-version: "pypy-3.7"
-            experimental: true
-          - os: ubuntu-latest
-            python-version: "pypy-3.8"
-            experimental: true
-          - os: ubuntu-latest
-            python-version: "pypy-3.9"
-            experimental: true
-      fail-fast: true
-    continue-on-error: ${{ matrix.experimental }}
-    runs-on: ${{ matrix.os }}
-    steps:
-    - name: Cancel Previous Runs
-      if: success() && !env.ACT
-      uses: styfle/cancel-workflow-action@0.10.0
-      with:
-        access_token: ${{ github.token }}
-    - name: Checkout
-      if: success() && !env.ACT
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 1
-        persist-credentials: false
-    - name: Lint shell scripts
-      if: success() && startsWith(runner.os, 'Linux') && matrix.python-version == 3.10 && !env.ACT
-      uses: ludeeus/action-shellcheck@master
-      with:
-        format: diff
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Restore pip cache
-      if: success() && !env.ACT
-      uses: actions/cache@v3
-      with:
-        path: $(python -m pip cache dir)
-        key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-${{ matrix.python-version }}-
-    - name: Install Poetry
-      uses: snok/install-poetry@v1.3.1
-      with:
-        version: 1.2.0
-        virtualenvs-path: .venv
-        virtualenvs-create: true
-        virtualenvs-in-project: true
-        installer-parallel: false
-    - name: Restore poetry cache
-      if: success() && !env.ACT
-      uses: actions/cache@v3
-      with:
-        path: $(poetry config cache-dir)
-        key: ${{ runner.os }}-poetry-${{ matrix.python-version }}-${{ hashFiles('**/pyproject.toml') }}
-    - name: Restore virtualenv
-      if: success() && !env.ACT
-      uses: actions/cache@v3
-      with:
-        path: .venv
-        key: ${{ runner.os }}-virtualenv-${{ matrix.python-version }}-${{ hashFiles('**/pyproject.toml') }}
-    - name: Install dependencies
-      run: |
-        poetry lock --no-update
-        poetry install --no-interaction --no-root
-        pip install poethepoet
-      shell: bash
-    - name: Run yarn
-      if: success() && startsWith(runner.os, 'Linux') && matrix.python-version == 3.10
-      run: poe yarn
-      shell: bash
-    - name: Lint Python
-      if: success() && startsWith(runner.os, 'Linux') && matrix.python-version == 3.10
-      run: poe lint
-      shell: bash
-    - name: Lint and test Javascript
-      if: success() && startsWith(runner.os, 'Linux') && matrix.python-version == 3.10
-      run: poe yarn test
-      shell: bash
-    - name: Test Python
-      run: |
-        poe pytest
-        poe codecov --env OS=${{ runner.os }} Interpreter="$(poetry run python -V)" -t ${{ secrets.CODECOV_TOKEN }}
-      shell: bash
+#  Test:
+#    strategy:
+#      matrix:
+#        os: [ubuntu-latest]
+#        python-version: [3.7, 3.8, 3.9, "3.10"]
+#        experimental: [false]
+#        include:
+#          - os: windows-latest
+#            python-version: 3.9
+#            experimental: true
+#          - os: macos-latest
+#            python-version: 3.9
+#            experimental: true
+#          - os: ubuntu-latest
+#            python-version: "3.11-dev"
+#            experimental: true
+#          - os: ubuntu-latest
+#            python-version: "pypy-3.7"
+#            experimental: true
+#          - os: ubuntu-latest
+#            python-version: "pypy-3.8"
+#            experimental: true
+#          - os: ubuntu-latest
+#            python-version: "pypy-3.9"
+#            experimental: true
+#      fail-fast: true
+#    continue-on-error: ${{ matrix.experimental }}
+#    runs-on: ${{ matrix.os }}
+#    steps:
+#    - name: Cancel Previous Runs
+#      if: success() && !env.ACT
+#      uses: styfle/cancel-workflow-action@0.10.0
+#      with:
+#        access_token: ${{ github.token }}
+#    - name: Checkout
+#      if: success() && !env.ACT
+#      uses: actions/checkout@v3
+#      with:
+#        fetch-depth: 1
+#        persist-credentials: false
+#    - name: Lint shell scripts
+#      if: success() && startsWith(runner.os, 'Linux') && matrix.python-version == 3.10 && !env.ACT
+#      uses: ludeeus/action-shellcheck@master
+#      with:
+#        format: diff
+#    - name: Set up Python ${{ matrix.python-version }}
+#      uses: actions/setup-python@v4
+#      with:
+#        python-version: ${{ matrix.python-version }}
+#    - name: Restore pip cache
+#      if: success() && !env.ACT
+#      uses: actions/cache@v3
+#      with:
+#        path: $(python -m pip cache dir)
+#        key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/yarn.lock') }}
+#        restore-keys: |
+#          ${{ runner.os }}-pip-${{ matrix.python-version }}-
+#    - name: Install Poetry
+#      uses: snok/install-poetry@v1.3.1
+#      with:
+#        version: 1.2.0
+#        virtualenvs-path: .venv
+#        virtualenvs-create: true
+#        virtualenvs-in-project: true
+#        installer-parallel: false
+#    - name: Restore poetry cache
+#      if: success() && !env.ACT
+#      uses: actions/cache@v3
+#      with:
+#        path: $(poetry config cache-dir)
+#        key: ${{ runner.os }}-poetry-${{ matrix.python-version }}-${{ hashFiles('**/pyproject.toml') }}
+#    - name: Restore virtualenv
+#      if: success() && !env.ACT
+#      uses: actions/cache@v3
+#      with:
+#        path: .venv
+#        key: ${{ runner.os }}-virtualenv-${{ matrix.python-version }}-${{ hashFiles('**/pyproject.toml') }}
+#    - name: Install dependencies
+#      run: |
+#        poetry lock --no-update
+#        poetry install --no-interaction --no-root
+#        pip install poethepoet
+#      shell: bash
+#    - name: Run yarn
+#      if: success() && startsWith(runner.os, 'Linux') && matrix.python-version == 3.10
+#      run: poe yarn
+#      shell: bash
+#    - name: Lint Python
+#      if: success() && startsWith(runner.os, 'Linux') && matrix.python-version == 3.10
+#      run: poe lint
+#      shell: bash
+#    - name: Lint and test Javascript
+#      if: success() && startsWith(runner.os, 'Linux') && matrix.python-version == 3.10
+#      run: poe yarn test
+#      shell: bash
+#    - name: Test Python
+#      run: |
+#        poe pytest
+#        poe codecov --env OS=${{ runner.os }} Interpreter="$(poetry run python -V)" -t ${{ secrets.CODECOV_TOKEN }}
+#      shell: bash
 
   Release:
-    needs: [Test]
+#    needs: [Test]
     runs-on: ubuntu-latest
     concurrency: Release
     steps:
