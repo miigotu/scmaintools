@@ -157,7 +157,3 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         repository_username: __token__
         repository_password: ${{ secrets.PYPI_TOKEN }}
-#    - uses: bjoluc/semantic-release-config-poetry@v1
-#      with:
-#        pypi_token: ${{ secrets.PYPI_TOKEN }}
-#        github_token: ${{ secrets.GITHUB_TOKEN }}
