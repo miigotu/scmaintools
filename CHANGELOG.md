@@ -24,6 +24,16 @@ All notable changes to this project will be documented in this file. See
 
 <!--next-version-placeholder-->
 
+## v0.2.2 (2022-09-19)
+### Fix
+* Add a line to see if this builds ([`dfbc798`](https://github.com/miigotu/scmaintools/commit/dfbc798bc23c0561c6b0c9cb9da0406fa3f2b989))
+
+| Type | Change |
+| --- | --- |
+| Fix | Add a line to see if this builds ([`dfbc798`](https://github.com/miigotu/scmaintools/commit/dfbc798bc23c0561c6b0c9cb9da0406fa3f2b989)) |
+
+**[See all commits in this version](https://github.com/miigotu/scmaintools/compare/0.2.1...0.2.2)**
+
 ## v0.2.1 (2022-09-19)
 ### Fix
 * Clean up comments ([`28990c1`](https://github.com/miigotu/scmaintools/commit/28990c1dca9de5741900e5cd2ec8d51f37924004))
