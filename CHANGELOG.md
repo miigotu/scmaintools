@@ -24,6 +24,16 @@ All notable changes to this project will be documented in this file. See
 
 <!--next-version-placeholder-->
 
+## v0.2.1 (2022-09-19)
+### Fix
+* Clean up comments ([`28990c1`](https://github.com/miigotu/scmaintools/commit/28990c1dca9de5741900e5cd2ec8d51f37924004))
+
+| Type | Change |
+| --- | --- |
+| Fix | Clean up comments ([`28990c1`](https://github.com/miigotu/scmaintools/commit/28990c1dca9de5741900e5cd2ec8d51f37924004)) |
+
+**[See all commits in this version](https://github.com/miigotu/scmaintools/compare/0.2.0...0.2.1)**
+
 ## v0.2.0 (2022-09-19)
 ### Feature
 * Improve workflow ([`49e8e8d`](https://github.com/miigotu/scmaintools/commit/49e8e8d003be2f7985ef458f770ab17f95e46725))
