@@ -59,12 +59,6 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Set up Node
-      if: success() && startsWith(runner.os, 'Linux') && matrix.python-version == 3.10
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16.x'
-        cache: 'npm'
     - name: Restore pip cache
       if: success() && !env.ACT
       uses: actions/cache@v3
@@ -73,18 +67,6 @@ jobs:
         key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/yarn.lock') }}
         restore-keys: |
           ${{ runner.os }}-pip-${{ matrix.python-version }}-
-    - name: Restore npm cache
-      if: success() && startsWith(runner.os, 'Linux') && matrix.python-version == 3.10
-      uses: actions/cache@v3
-      with:
-        path: $(npm config get cache)
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-    - name: Install yarn
-      if: success() && startsWith(runner.os, 'Linux') && matrix.python-version == 3.10
-      run: npm install -g yarn
-      shell: bash
     - name: Install Poetry
       uses: snok/install-poetry@v1.3.1
       with:
