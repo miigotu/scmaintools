@@ -24,6 +24,16 @@ All notable changes to this project will be documented in this file. See
 
 <!--next-version-placeholder-->
 
+## v0.3.0 (2022-09-19)
+### Feature
+* Adjust actions ([`fedd564`](https://github.com/miigotu/scmaintools/commit/fedd564283e7bc66859a78fd163ea4ea30f1f496))
+
+| Type | Change |
+| --- | --- |
+| Feature | Adjust actions ([`fedd564`](https://github.com/miigotu/scmaintools/commit/fedd564283e7bc66859a78fd163ea4ea30f1f496)) |
+
+**[See all commits in this version](https://github.com/miigotu/scmaintools/compare/0.2.3...0.3.0)**
+
 ## v0.2.3 (2022-09-19)
 ### Fix
 * Workflow improved ([`dbf10b6`](https://github.com/miigotu/scmaintools/commit/dbf10b615d22f4171c3b246716333aae71f6a983))
