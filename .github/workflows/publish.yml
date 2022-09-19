@@ -130,6 +130,7 @@ jobs:
       shell: bash
 
   Release:
+    needs: [Test]
     runs-on: ubuntu-latest
     concurrency: Release
     steps:
